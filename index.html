@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Amicable Numbers</title>
+	<style>
+		form {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.in , #title {
+			margin-top: 30px;
+			font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+			font-size: 30px;
+		}
+	
+		.box {
+			width: 30%;
+			height: 30px;
+		}
+		
+		input[type="text"] {
+			font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+			font-size: 30px;
+		}
+		input[type="submit"] {
+			font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+			font-size: 30px;
+		}
+		
+		submit {
+			border: solid thick black;
+			padding: 20px;
+			background-color: rgba(82,82,82,1.00);
+			color: white;
+		}
+		submit:hover {
+			cursor: pointer;
+		}
+		#result, #allFactors, #title {
+			text-align: center;
+		}
+	</style>
+	
+</head>
+
+<body style="background-color: rgba(227,182,183,1.00)">
+	<div id="title">Amicable Number Checker</div>
+	<form>
+		<label for="num1" class="in">Number 1</label><input id="num1" type="number" class="box">
+		<label for="num2" class="in">Number 2</label><input id="num2" type="number" class="box">
+		<submit class="in" id="submit" type="button" onClick="amicable()" style="font-family: Baskerville, 'Palatino Linotype'; font-size:40px;"> Submit </submit>
+</form>
+	<div id="result" class="in"></div>
+	<div id="allFactors" class="in"></div>
+		
+		<script language="javascript">
+			function amicable(){
+				var num1 = document.getElementById("num1").value;
+				var num2 = document.getElementById("num2").value;
+				
+				var allFactors1 = [];
+				var allFactors2 = [];
+				
+				for (i = 1; i < num1; i++){
+				if(isFactor(num1, i)){
+					allFactors1.push(i);
+				}
+				}
+				for (i = 1; i < num2; i++){
+				if(isFactor(num2, i)){
+					allFactors2.push(i);
+				}
+				}
+				
+				var fact1 = add(allFactors1);
+				var fact2 = add(allFactors2);
+				printResults(num1, num2, fact1, fact2);
+				document.getElementById("allFactors").innerHTML = "Factors of " + num1 + ": " + allFactors1 + "<br>" + "Factors of " + num2 + ": " + allFactors2 ;
+				
+			}
+			function isFactor(x, y){
+				return ((x % y) == 0);
+			}
+			
+			function add(arr){
+				var result = 0;
+				for(i = 0; i < arr.length; i++){
+					result += arr[i];
+				}
+				return result;
+			}
+			
+			function printResults(num1, num2, fact1, fact2){
+				if (fact1 == num2 && fact2 == num1){
+					document.getElementById("result").innerHTML = "The numbers: " + num1 + " and " + num2 + " are amicable";
+				} else {
+					document.getElementById("result").innerHTML = "The numbers: " + num1 + " and " + num2 + " are not amicable";
+				}
+			}
+			
+			
+		</script>
+</body>
+</html>
