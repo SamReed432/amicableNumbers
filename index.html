@@ -52,38 +52,43 @@
 	<form>
 		<label for="num1" class="in">Number 1</label><input id="num1" type="number" class="box">
 		<label for="num2" class="in">Number 2</label><input id="num2" type="number" class="box">
-		<submit class="in" id="submit" type="button" onClick="amicable()" style="font-family: Baskerville, 'Palatino Linotype'; font-size:40px;"> Submit </submit>
+		<button class="in" id="submit" type="button" onClick="amicable()" style="font-family: Baskerville, 'Palatino Linotype'; font-size:40px;"> Submit </button>
 </form>
 	<div id="result" class="in"></div>
 	<div id="allFactors" class="in"></div>
 		
 		<script language="javascript">
+				
+				var allFactors1 = [];
+				var allFactors2 = [];
+			
 			function amicable(){
 				var num1 = document.getElementById("num1").value;
 				var num2 = document.getElementById("num2").value;
 				
-				var allFactors1 = [];
-				var allFactors2 = [];
+				allFactors1 = [];
+				allFactors2 = [];
 				
-				for (i = 1; i < num1; i++){
-				if(isFactor(num1, i)){
-					allFactors1.push(i);
-				}
-				}
-				for (i = 1; i < num2; i++){
-				if(isFactor(num2, i)){
-					allFactors2.push(i);
-				}
-				}
+				getFactors(num1, allFactors1);
+				getFactors(num2, allFactors2);
 				
 				var fact1 = add(allFactors1);
 				var fact2 = add(allFactors2);
-				printResults(num1, num2, fact1, fact2);
-				document.getElementById("allFactors").innerHTML = "Factors of " + num1 + ": " + allFactors1 + "<br>" + "Factors of " + num2 + ": " + allFactors2 ;
+				
+				printResults(num1, num2, fact1, fact2, allFactors1, allFactors2);
 				
 			}
+			
 			function isFactor(x, y){
 				return ((x % y) == 0);
+			}
+			
+			function getFactors(num, arr){
+				for (i = 1; i < num; i++){
+				if(isFactor(num, i)){
+					arr.push(i);
+				}
+			}
 			}
 			
 			function add(arr){
@@ -94,12 +99,13 @@
 				return result;
 			}
 			
-			function printResults(num1, num2, fact1, fact2){
+			function printResults(num1, num2, fact1, fact2, allFactors1, allFactors2){
 				if (fact1 == num2 && fact2 == num1){
 					document.getElementById("result").innerHTML = "The numbers: " + num1 + " and " + num2 + " are amicable";
 				} else {
 					document.getElementById("result").innerHTML = "The numbers: " + num1 + " and " + num2 + " are not amicable";
 				}
+				document.getElementById("allFactors").innerHTML = "Factors of " + num1 + ": " + allFactors1 + "<br>" + "Factors of " + num2 + ": " + allFactors2 ;
 			}
 			
 			
